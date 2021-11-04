@@ -1,0 +1,159 @@
+/*Variables*/
+@use 'sass:math';
+
+$bubble-d: 4.5rem;
+$bubble-r: 0.5 * $bubble-d;
+
+$particle-d: 0.375rem;
+$particle-r: 0.5 * $particle-d;
+
+@mixin particles($k) {
+    $shadow-list: ();
+    $n-groups: 7;
+    $group-base-angle: math.div(360deg, $n-groups);
+    $group-distr-r: (1 + $k * 0.25) * $bubble-r;
+    $spread-r: -$k * 1.1 * $particle-r;
+    $n-particles: 2;
+    $particle-angle: 75deg;
+    $particle-sep: 0.2rem;
+
+    @for $i from 0 to $n-groups {
+        $group-curr-angle: $i * $group-base-angle - 90deg;
+        $xg: $group-distr-r * math.cos($group-curr-angle);
+        $yg: $group-distr-r * math.sin($group-curr-angle);
+
+        @for $j from 0 to $n-particles {
+            @if $j == 0 {
+                $shadow-list: $shadow-list,
+                    $xg
+                        $yg
+                        0
+                        $spread-r
+                        hsl(($i + $j) * $group-base-angle, 100%, 75%);
+            } @else {
+                $group-curr-angle: $i * $group-base-angle - $particle-angle;
+                $xg: ($group-distr-r + $particle-sep) *
+                    math.cos($group-curr-angle);
+                $yg: ($group-distr-r + $particle-sep) *
+                    math.sin($group-curr-angle);
+                $shadow-list: $shadow-list,
+                    $xg
+                        $yg
+                        0
+                        $spread-r
+                        hsl(($i + $j) * $group-base-angle, 100%, 75%);
+            }
+        }
+    }
+    box-shadow: $shadow-list;
+}
+
+.tweet__heart {
+    display: inline-block;
+    position: relative;
+    z-index: 10;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 1rem;
+    width: 2rem;
+    height: 2rem;
+}
+
+#heart {
+    position: absolute;
+    left: -100vw;
+}
+
+/* Corazon */
+
+#heart + [for='heart'] {
+    font-size: 1.5rem;
+    // color: #aab8c2;
+    color: transparent;
+    -webkit-text-stroke: 1px #aab8c2;
+    cursor: pointer;
+    user-select: none;
+}
+
+#heart:checked + [for='heart'] {
+    color: #e2264d;
+    animation: heart 1s cubic-bezier(0.17, 0.89, 0.32, 1.49);
+    -webkit-text-stroke: 1px #e2264d;
+}
+
+#heart + [for='heart'] {
+    position: relative;
+
+    &::before,
+    &::after {
+        position: absolute;
+        z-index: -1;
+        top: 50%;
+        left: 50%;
+        border-radius: 50%;
+        content: '';
+    }
+}
+
+/*  Burbuja */
+
+#heart + [for='heart'] {
+    &::before {
+        width: $bubble-d;
+        height: $bubble-d;
+        margin: -$bubble-r;
+        border: solid $bubble-r #e2264d;
+        transform: scale(0);
+    }
+}
+
+#heart:checked + [for='heart']::before {
+    animation: bubble 1.5s cubic-bezier(0.21, 0.61, 0.35, 1);
+}
+
+/* Particulas */
+
+#heart + [for='heart'] {
+    &::after {
+        margin: -$particle-r;
+        width: $particle-d;
+        height: $particle-d;
+        @include particles(1);
+    }
+}
+
+#heart:checked + [for='heart']::after {
+    animation: particles 1.5s cubic-bezier(0.17, 0.89, 0.32, 1.49);
+}
+
+@keyframes heart {
+    0%,
+    17.5% {
+        font-size: 0;
+    }
+}
+
+@keyframes bubble {
+    15% {
+        border-color: #cc8ef5;
+        border-width: $bubble-r;
+        transform: scale(1);
+    }
+    30%,
+    100% {
+        border-color: #cc8ef5;
+        border-width: 0;
+        transform: scale(1);
+    }
+}
+
+@keyframes particles {
+    0%,
+    20% {
+        @include particles(1);
+    }
+    25% {
+        @include particles(0);
+    }
+}

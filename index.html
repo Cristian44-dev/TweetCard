@@ -1,0 +1,9 @@
+<!DOCTYPE html><html lang="es"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta http-equiv="X-UA-Compatible" content="ie=edge"><link rel="stylesheet" href="./build/main.css"><script src="https://kit.fontawesome.com/cfb50b7225.js" crossorigin="anonymous" defer="defer"></script><title>Tweet Card</title></head><body><div class="tweet"><div class="tweet__img"><img src="./build/assets/foto_de_perfil.webp" alt="leonidasEsteban"></div><div class="tweet__content"><h1>LeonidasEsteban</h1><span>@LeonidasEsteban 2h</span><p>Los retos de esta semana de /Proyectos son totalmente gratis, crea una sección de pricing y una galería de fotos <a href="#">https://leonidasesteban.com/proyectos/cards-precios</a> <a href="#">https://leonidasesteban.com/proyectos/grid-gallery</a> estos los puedes hacer en 100% solo con HTML y CSS.</p><div class="tweet__publicacion"><div class="img"></div><div class="publicacion__content"><h1>Grid gallery</h1><p></p></div></div><div class="tweet__reaction"><div class="tweet__heart"><input id="heart" type="checkbox"> <label for="heart"><i class="fas fa-heart"></i></label></div><span id="reactions"></span></div></div></div><script>let numberReactions = 250;
+            const input = document.getElementById('heart');
+            const reactions = document.getElementById('reactions');
+            input.addEventListener('click', () => {
+                input.checked
+                    ? (reactions.textContent = ++numberReactions)
+                    : (reactions.textContent = --numberReactions);
+            });
+            reactions.textContent = numberReactions;</script></body></html>

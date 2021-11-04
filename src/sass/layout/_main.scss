@@ -1,0 +1,97 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: black;
+    height: 100vh;
+}
+
+.tweet {
+    width: 100%;
+    max-width: 50rem;
+    border: solid 0.1rem white;
+    display: flex;
+    padding: 2rem;
+    column-gap: 1rem;
+    margin: 1rem;
+}
+
+.tweet__img {
+    width: 10%;
+    min-width: 4rem;
+    img {
+        width: 100%;
+    }
+}
+
+.tweet__content {
+    width: 90%;
+
+    h1 {
+        display: inline-block;
+        font-size: 1.2rem;
+        margin-right: 0.2rem;
+    }
+
+    span {
+        font-size: 1.2rem;
+        color: grey;
+        font-weight: $font-medium;
+    }
+
+    p {
+        font-size: 1.1rem;
+        font-weight: $font-regular;
+        line-height: 2rem;
+
+        a {
+            color: dodgerblue;
+            text-decoration: none;
+
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+    }
+}
+
+.tweet__publicacion {
+    display: flex;
+    border: solid grey 0.1rem;
+    border-radius: 20px;
+    overflow: hidden;
+    height: 10rem;
+    width: 100%;
+    .img {
+        width: 25%;
+        min-width: 10rem;
+        background-image: url('./assets/grid-gallery.webp');
+        background-size: contain;
+        background-position: center;
+    }
+
+    .publicacion__content {
+        width: 75%;
+        padding: 1.6rem;
+        h1 {
+            margin: 0;
+            font-weight: $font-medium;
+        }
+
+        p::after {
+            content: 'LeonidasEsteban.com';
+            font-size: 1.1rem;
+            color: grey;
+
+            @media (min-width: 768px) {
+                content: 'Practica tus habilidades de Grid CSS con este ejercicio de las capitales del mundo.';
+            }
+        }
+    }
+}
+
+.tweet__reaction {
+    display: flex;
+    align-items: center;
+    margin: 1.6rem 1rem 0;
+}
